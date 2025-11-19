@@ -16,7 +16,7 @@ app.use(cors({
 }));
 
 
-
+console.log("Teste marche")
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
