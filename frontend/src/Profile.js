@@ -12,7 +12,7 @@ function Profile() {
 
   return (
     <div>
-      <h2>Profil de l'utilisateur</h2>
+      <h2>Profil de l'utilisateur TEST</h2>
       {username ? <p>Bonjour, {username} !</p> : <p>Utilisateur non connecté.</p>}
     </div>
   );
