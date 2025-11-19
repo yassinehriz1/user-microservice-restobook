@@ -23,7 +23,7 @@ pipeline {
                 script {
                     def BACK_IMAGE = "${DOCKER_USER_ID}/backend-user-microservice:${TAG_NAME}"
                     echo "Construction de l'image Back-end: ${BACK_IMAGE}"
-                    sh "docker build -t ${BACK_IMAGE} ./user-microservice/backend" 
+                    sh "docker build -t ${BACK_IMAGE} ./backend" 
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
                 script {
                     def FRONT_IMAGE = "${DOCKER_USER_ID}/frontend-user-microservice:${TAG_NAME}"
                     echo "Construction de l'image Front-end: ${FRONT_IMAGE}"
-                    sh "docker build -t ${FRONT_IMAGE} ./user-microservice/frontend" 
+                    sh "docker build -t ${FRONT_IMAGE} ./frontend" 
                 }
             }
         }
