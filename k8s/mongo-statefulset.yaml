@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb-user-statefulset
+  labels:
+    app: mongo-user
+spec:
+  serviceName: "mongo-user-service"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mongo-user-pod
+  template:
+    metadata:
+      labels:
+        app: mongo-user-pod
+    spec:
+      containers:
+        - name: container-user-mongodb
+          image: yassinehriz/microservice-catalogue-database:v1
+          command: ["mongod"]
+          args: ["--replSet=rsUser", "--bind_ip_all"]
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: admin
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: pass
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-user-deployment
+  labels:
+    app: backend-user-microservice
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-user-pod
+
+  template:
+    metadata:
+      labels:
+        app: backend-user-pod
+    spec:
+      containers:
+        - name: container-user-backend
+          image: yassinehriz/backend-user-microservice:v8
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              value: mongodb://admin:pass@mongo-user-service:27017/user?replicaSet=rsUser&authSource=admin
+            - name: SECRET_KEY
+              value: my_secret_key

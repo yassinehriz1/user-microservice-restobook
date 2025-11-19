@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-user-deployment
+  labels:
+    app: frontend-user-microservice
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-user-pod
+  template:
+      metadata:
+       labels:
+         app: frontend-user-pod
+      spec:
+       containers:
+       - name: frontend-user-container
+         image: yassinehriz/frontend-user-microservice:v5
+         ports:
+         - containerPort: 80
+         env:
+          -  name: BACKEND_URI
+             value: http://backend-user-service:5000/auth/login
+
