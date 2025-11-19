@@ -5,7 +5,6 @@ const loginRoute = require("./routes/login")
 const registerRoute = require("./routes/register")
 const grpcServer = require('./grpc/grpc-server.js'); 
 require("dotenv").config();
-const client = require('prom-client');
 
 
 const PORT = 5000;
@@ -17,13 +16,7 @@ app.use(cors({
 }));
 
 
-const collectDefaultMetrics = client.collectDefaultMetrics;
-collectDefaultMetrics(); // CPU, memory, etc
 
-app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', client.register.contentType);
-  res.end(await client.register.metrics());
-});
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
