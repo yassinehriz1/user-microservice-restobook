@@ -66,6 +66,7 @@ function AuthPage() {
 
   return (
     <form onSubmit={handleSubmit} className="simple-form">
+      <h1>TEST PIPELINE</h1>
       <h2>{isLogin ? 'Connexion' : 'Inscription'}</h2>
       
       <input
