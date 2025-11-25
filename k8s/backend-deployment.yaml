@@ -15,6 +15,12 @@ spec:
     metadata:
       labels:
         app: backend-user-pod
+      # --- AJOUTER CETTE SECTION ---
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"      # Attention: C'est le port de votre conteneur
+        prometheus.io/path: "/metrics"  # Le chemin où votre code expose les metrics
+      # -----------------------------
     spec:
       containers:
         - name: container-user-backend
