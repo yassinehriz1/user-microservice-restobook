@@ -32,7 +32,8 @@ collectDefaultMetrics();
 
 
 app.get('/metrics', async (req, res) => {
-  res.send("hello")
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
 });
 
 app.use('/api/auth',registerRoute)
