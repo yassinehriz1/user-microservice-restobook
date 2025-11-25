@@ -17,7 +17,6 @@ app.use(cors({
 }));
 
 
-console.log("Teste marche")
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
@@ -29,11 +28,18 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 const collectDefaultMetrics = client.collectDefaultMetrics;
 collectDefaultMetrics();
 
-
+const register = new client.Registry();
+client.collectDefaultMetrics({ register });
 
 app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', register.contentType);
-  res.end(await register.metrics());
+  try {
+    res.set('Content-Type', register.contentType);
+    const metrics = await register.metrics();
+    res.end(metrics);
+  } catch (err) {
+    console.error("Erreur metrics:", err);
+    res.status(500).send("metrics-error");
+  }
 });
 
 app.use('/api/auth',registerRoute)
